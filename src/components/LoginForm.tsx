@@ -1,19 +1,18 @@
 const LoginForm = () => {
   return(
-    <div className={"flex justify-center align-baseline border"}>
-      <form className={"flex-row justify-center align-baseline"}>
-        <label className={"block m-1 padding"}>
-          Username
-          <input type="text" className={"border m-2"}/>
-        </label>
-        <label className={"block m-1"}>
-          Password
-          <input type="text" className={"border m-2"}/>
-        </label>
-        <button className={"border p-2 rounded-lg"} type="submit">Login</button>
-      </form>
-    </div>
+    <form className={"border p-4"}>
+      <label className={"m-1 padding block"}>
+        Username
+        <input type="text" className={"border"}/>
+      </label>
+      <label className={"m-1 block"}>
+        Password
+        <input type="text" className={"border"}/>
+      </label>
+      <button className={"border p-2 rounded-lg"} type="submit">Login</button>
+    </form> 
   )
 }
+
 
 export default LoginForm

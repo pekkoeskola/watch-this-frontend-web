@@ -7,6 +7,8 @@ export const Route = createFileRoute('/(auth)/login')({
 
 function RouteComponent() {
   return(
-    <LoginForm />
+    <div className={"h-screen flex border justify-center items-center"}>
+      <LoginForm />
+    </div>
   )
 }
