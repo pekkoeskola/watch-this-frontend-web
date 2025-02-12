@@ -1,24 +1,25 @@
 import { useState } from "react";
-import loginService from "../services/login";
 import { useNavigate } from "@tanstack/react-router";
 
 import { Route as indexRoute } from "../routes/index";
+import { useLoginMutation } from "../endpoint";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [login, { error }] = useLoginMutation()
+
+  if(error !== undefined){
+    console.log(error)
+  }
+
   const navigate = useNavigate({ from: "/login" });
 
   const onLogin = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-    try {
-      const data = await loginService.login(username, password);
-      console.log(data)
-      navigate({ to: indexRoute.to });
-    } catch (e) {
-      console.error(e);
-    }
+    login({username, password})
+    navigate({ to: indexRoute.to });
   };
 
   return (

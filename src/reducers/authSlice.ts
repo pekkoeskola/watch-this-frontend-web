@@ -6,11 +6,9 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    createPost(state, action) {},
-  },
+  reducers: {},
 });
 
-const { actions, reducer } = authSlice;
+const { reducer } = authSlice;
 
 export default reducer;
