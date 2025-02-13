@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { LoginDetails } from "../types.ts";
+import { AuthState, LoginDetails } from "../types.ts";
 
 export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
@@ -7,7 +7,7 @@ export const baseApi = createApi({
   }),
   tagTypes: [],
   endpoints: (build) => ({
-    login: build.mutation({
+    login: build.mutation<AuthState, LoginDetails>({
       query: (loginDetails: LoginDetails) => ({
         url: `/login`,
         method: "POST",
