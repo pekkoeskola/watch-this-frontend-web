@@ -8,18 +8,12 @@ const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [login, { error }] = useLoginMutation()
-
-  if(error !== undefined){
-    console.log(error)
-  }
-
+  const [login, { error }] = useLoginMutation();
   const navigate = useNavigate({ from: "/login" });
 
   const onLogin = async (e: React.SyntheticEvent) => {
-    e.preventDefault()
-    login({username, password})
-    navigate({ to: indexRoute.to });
+    e.preventDefault();
+    login({ username, password }).unwrap().then(() => navigate({ to: indexRoute.to }));
   };
 
   return (
@@ -45,6 +39,7 @@ const LoginForm = () => {
       <button className={"rounded-lg border p-2"} type="submit">
         Login
       </button>
+      {error !== undefined && <div>couldn't login</div>}
     </form>
   );
 };
