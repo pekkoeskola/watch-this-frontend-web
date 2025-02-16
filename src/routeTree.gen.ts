@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as GroupsGroupIDImport } from './routes/groups/$groupID'
 import { Route as authLoginImport } from './routes/(auth)/login'
 
 // Create/Update Routes
@@ -19,6 +20,12 @@ import { Route as authLoginImport } from './routes/(auth)/login'
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const GroupsGroupIDRoute = GroupsGroupIDImport.update({
+  id: '/groups/$groupID',
+  path: '/groups/$groupID',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -46,6 +53,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLoginImport
       parentRoute: typeof rootRoute
     }
+    '/groups/$groupID': {
+      id: '/groups/$groupID'
+      path: '/groups/$groupID'
+      fullPath: '/groups/$groupID'
+      preLoaderRoute: typeof GroupsGroupIDImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -54,36 +68,41 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof authLoginRoute
+  '/groups/$groupID': typeof GroupsGroupIDRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof authLoginRoute
+  '/groups/$groupID': typeof GroupsGroupIDRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/(auth)/login': typeof authLoginRoute
+  '/groups/$groupID': typeof GroupsGroupIDRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login'
+  fullPaths: '/' | '/login' | '/groups/$groupID'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login'
-  id: '__root__' | '/' | '/(auth)/login'
+  to: '/' | '/login' | '/groups/$groupID'
+  id: '__root__' | '/' | '/(auth)/login' | '/groups/$groupID'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   authLoginRoute: typeof authLoginRoute
+  GroupsGroupIDRoute: typeof GroupsGroupIDRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   authLoginRoute: authLoginRoute,
+  GroupsGroupIDRoute: GroupsGroupIDRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,7 +116,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/(auth)/login"
+        "/(auth)/login",
+        "/groups/$groupID"
       ]
     },
     "/": {
@@ -105,6 +125,9 @@ export const routeTree = rootRoute
     },
     "/(auth)/login": {
       "filePath": "(auth)/login.tsx"
+    },
+    "/groups/$groupID": {
+      "filePath": "groups/$groupID.tsx"
     }
   }
 }
