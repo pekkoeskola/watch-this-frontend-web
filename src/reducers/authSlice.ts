@@ -20,6 +20,13 @@ const authSlice = createSlice({
         state.id = action.payload.id;
       },
     );
+    build.addMatcher(
+      baseApi.endpoints.checkExistingLogin.matchFulfilled,
+      (state, action: PayloadAction<AuthState>) => {
+        state.username = action.payload.username;
+        state.id = action.payload.id;
+      },
+    );
   },
 });
 

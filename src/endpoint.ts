@@ -14,6 +14,12 @@ export const baseApi = createApi({
         body: loginDetails,
       }),
     }),
+    checkExistingLogin: build.query<AuthState, void>({
+      query: () => ({
+        url: `/login`,
+        method: "GET",
+      }),
+    }),
     getGroups: build.query<Group[], number>({
       query: (userID: number) => ({
         url: `/users/${userID}/groups`,
@@ -23,4 +29,4 @@ export const baseApi = createApi({
   }),
 });
 
-export const { useLoginMutation, useGetGroupsQuery } = baseApi;
+export const { useLoginMutation, useGetGroupsQuery, useCheckExistingLoginQuery } = baseApi;

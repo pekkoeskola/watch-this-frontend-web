@@ -5,7 +5,7 @@ interface GroupListProps {
 }
 
 const GroupsList = ({ userID }: GroupListProps) => {
-  const { data, isSuccess} = useGetGroupsQuery(userID);
+  const { data, isSuccess } = useGetGroupsQuery(userID);
 
   if(isSuccess){
     console.log(data)

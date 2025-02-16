@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useAppSelector } from '../hooks'
 import GroupsList from '../components/GroupsList'
+import { useCheckExistingLoginQuery } from '../endpoint'
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
@@ -8,6 +9,7 @@ export const Route = createFileRoute('/')({
 
 
 function RouteComponent() {
+  useCheckExistingLoginQuery()
   const userDetails = useAppSelector(state => state.auth)
 
   if(userDetails.id !== null){
