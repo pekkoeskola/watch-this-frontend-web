@@ -1,28 +1,26 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { baseApi } from "../endpoint"
+import { baseApi } from "../endpoint";
 import { AuthState } from "../../types";
 
 const initialState: AuthState = {
   username: null,
+  id: null,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    login: (state, action: PayloadAction<string>) => {
-      state.username = action.payload
-    }
-  },
+  reducers: {},
   extraReducers: (build) => {
     build.addMatcher(
       baseApi.endpoints.login.matchFulfilled,
       (state, action: PayloadAction<AuthState>) => {
-        state.username = action.payload.username
-      }
-    )
-  }
+        state.username = action.payload.username;
+        state.id = action.payload.id;
+      },
+    );
+  },
 });
 
 const { reducer } = authSlice;

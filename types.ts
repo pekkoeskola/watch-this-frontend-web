@@ -4,5 +4,6 @@ export interface LoginDetails {
 }
 
 export interface AuthState {
-  username: string | null
+  username: string | null,
+  id: number | null
 }
