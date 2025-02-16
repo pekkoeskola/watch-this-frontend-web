@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { AuthState, LoginDetails } from "../types.ts";
+import { AuthState, Group, LoginDetails } from "../types.ts";
 
 export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
@@ -14,7 +14,13 @@ export const baseApi = createApi({
         body: loginDetails,
       }),
     }),
+    getGroups: build.query<Group[], number>({
+      query: (userID: number) => ({
+        url: `/users/${userID}/groups`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = baseApi;
+export const { useLoginMutation, useGetGroupsQuery } = baseApi;
