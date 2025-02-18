@@ -31,8 +31,14 @@ export const baseApi = createApi({
         url: `/groups/${groupID}/movies`,
         method: "GET"
       })
+    }),
+    search: build.query<Movie[], string>({
+      query: (keyword: string) => ({
+        url: `/movies?keyword=${keyword}`,
+        method: "GET"
+      })
     })
   }),
 });
 
-export const { useLoginMutation, useGetGroupsQuery, useCheckExistingLoginQuery, useGetMoviesQuery } = baseApi;
+export const { useLoginMutation, useGetGroupsQuery, useCheckExistingLoginQuery, useGetMoviesQuery, useLazySearchQuery } = baseApi;

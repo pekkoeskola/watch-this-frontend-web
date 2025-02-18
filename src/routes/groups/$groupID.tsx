@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useGetGroupsQuery, useGetMoviesQuery } from "../../endpoint";
 import MovieCard from "../../components/MovieCard";
 import { useAppSelector } from "../../hooks";
+import Search from "../../components/Search";
 
 export const Route = createFileRoute("/groups/$groupID")({
   component: RouteComponent,
@@ -24,6 +25,7 @@ function RouteComponent() {
         {movieData.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
+        <Search />
       </div>
     );
   }
