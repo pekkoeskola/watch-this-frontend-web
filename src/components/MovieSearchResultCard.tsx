@@ -8,7 +8,7 @@ interface MovieSearchResultCardProps {
 
 const MovieCard = ({ movie, groupID }: MovieSearchResultCardProps) => {
 
-  const [ triggerAddMovie, result ] = useAddMovieToGroupMutation()
+  const [ triggerAddMovie, _result ] = useAddMovieToGroupMutation()
 
   const addMovie = () => {
     triggerAddMovie({tmdbID: movie.id, groupID: groupID})

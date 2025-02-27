@@ -39,12 +39,20 @@ export const baseApi = createApi({
         method: "GET"
       })
     }),
-    addMovieToGroup: build.mutation<string, {tmdbID: number, groupID: number}>({
+    //FIXME: return type should be movie so it can be manually updated to cache instead of refetching all movies
+    addMovieToGroup: build.mutation<void, {tmdbID: number, groupID: number}>({
       query: (params: {tmdbID: number, groupID: number}) => ({
         url: `/groups/${params.groupID}/movies/${params.tmdbID}`,
         method: "POST"
       }),
       invalidatesTags: ["Movie"]
+    }),
+    //FIXME: return type should be new rating so it can be manually updated to cache instead of refetching all movies
+    addMovieRating: build.mutation<void, {movieID: number, userID: number, rating: number}>({
+      query: (params: {movieID: number, userID: number, rating: number}) => ({
+        url: `/movies/${params.movieID}/user/${params.userID}/rating/${params.rating}`,
+        method: "POST"
+      })
     })
   }),
 });
