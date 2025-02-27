@@ -5,7 +5,7 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
   }),
-  tagTypes: [],
+  tagTypes: ["Movie"],
   endpoints: (build) => ({
     login: build.mutation<AuthState, LoginDetails>({
       query: (loginDetails: LoginDetails) => ({
@@ -29,16 +29,24 @@ export const baseApi = createApi({
     getMovies: build.query<Movie[], number>({
       query: (groupID: number) => ({
         url: `/groups/${groupID}/movies`,
-        method: "GET"
-      })
+        method: "GET",
+      }),
+      providesTags: ["Movie"]
     }),
     search: build.query<Movie[], string>({
       query: (keyword: string) => ({
         url: `/movies?keyword=${keyword}`,
         method: "GET"
       })
+    }),
+    addMovieToGroup: build.mutation<string, {tmdbID: number, groupID: number}>({
+      query: (params: {tmdbID: number, groupID: number}) => ({
+        url: `/groups/${params.groupID}/movies/${params.tmdbID}`,
+        method: "POST"
+      }),
+      invalidatesTags: ["Movie"]
     })
   }),
 });
 
-export const { useLoginMutation, useGetGroupsQuery, useCheckExistingLoginQuery, useGetMoviesQuery, useLazySearchQuery } = baseApi;
+export const { useLoginMutation, useGetGroupsQuery, useCheckExistingLoginQuery, useGetMoviesQuery, useLazySearchQuery, useAddMovieToGroupMutation } = baseApi;

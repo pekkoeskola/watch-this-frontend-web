@@ -2,6 +2,7 @@ import { Movie } from "../../types"
 
 interface MovieCardProps {
   movie: Movie
+  groupID: number
 }
 
 const MovieCard = ({ movie }: MovieCardProps) => {

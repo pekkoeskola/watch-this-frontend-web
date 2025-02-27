@@ -19,15 +19,18 @@ function RouteComponent() {
 
   if (isMovieSuccess && isGroupSuccess) {
     const group = groupData.find((group) => group.id === Number(groupID))
-    return (
-      <div className={""}>
-        <h2 className={""}>{group !== undefined ? group.name : groupID}</h2>
-        {movieData.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
-        <Search />
-      </div>
-    );
+    if(group){
+      return (
+        <div className={""}>
+          <h2 className={""}>{group.name}</h2>
+          {movieData.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} groupID={group.id} />
+          ))}
+          <Search groupID={group.id}/>
+        </div>
+      );
+    }
+    return <div className={""}>{groupID}</div>;
   }
 
   return <div className={""}>{groupID}</div>;

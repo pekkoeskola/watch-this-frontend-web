@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { useLazySearchQuery } from "../endpoint";
-import MovieCard from "./MovieCard";
+import MovieSearchResultCard from "./MovieSearchResultCard";
 
-const Search = () => {
+interface SearchProps {
+  groupID: number
+}
+
+const Search = ({groupID}: SearchProps) => {
   const [searchField, setSearchField] = useState("");
 
   const [trigger, result] = useLazySearchQuery();
@@ -18,7 +22,7 @@ const Search = () => {
         <input type="text" onChange={(e) => setSearchField(e.target.value)} />
         <button type="submit">search</button>
       </form>
-      {result.isSuccess && result.data.map((movie) => <MovieCard movie={movie}/>)}
+      {result.isSuccess && result.data.map((movie) => <MovieSearchResultCard key={movie.id} movie={movie} groupID={groupID}/>)}
     </div>
   );
 };
