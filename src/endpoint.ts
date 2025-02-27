@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { AuthState, Group, LoginDetails, Movie } from "../types.ts";
+import { AddRatingParams, AuthState, Group, LoginDetails, Movie } from "../types.ts";
 
 export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
@@ -48,13 +48,14 @@ export const baseApi = createApi({
       invalidatesTags: ["Movie"]
     }),
     //FIXME: return type should be new rating so it can be manually updated to cache instead of refetching all movies
-    addMovieRating: build.mutation<void, {movieID: number, userID: number, rating: number}>({
-      query: (params: {movieID: number, userID: number, rating: number}) => ({
+    addMovieRating: build.mutation<void, AddRatingParams>({
+      query: (params: AddRatingParams) => ({
         url: `/movies/${params.movieID}/user/${params.userID}/rating/${params.rating}`,
         method: "POST"
-      })
+      }),
+      invalidatesTags: ["Movie"]
     })
   }),
 });
 
-export const { useLoginMutation, useGetGroupsQuery, useCheckExistingLoginQuery, useGetMoviesQuery, useLazySearchQuery, useAddMovieToGroupMutation } = baseApi;
+export const { useLoginMutation, useGetGroupsQuery, useCheckExistingLoginQuery, useGetMoviesQuery, useLazySearchQuery, useAddMovieToGroupMutation, useAddMovieRatingMutation } = baseApi;

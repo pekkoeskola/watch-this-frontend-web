@@ -4,8 +4,8 @@ import { baseApi } from "../endpoint";
 import { AuthState } from "../../types";
 
 const initialState: AuthState = {
-  username: null,
-  id: null,
+  username: undefined,
+  id: undefined,
 };
 
 const authSlice = createSlice({

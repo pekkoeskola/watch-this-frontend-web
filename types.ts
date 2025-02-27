@@ -4,8 +4,8 @@ export interface LoginDetails {
 }
 
 export interface AuthState {
-  username: string | null;
-  id: number | null;
+  username?: string;
+  id?: number;
 }
 
 export interface Movie {
@@ -13,9 +13,16 @@ export interface Movie {
   title: string;
   overview: string;
   posterURL?: string;
+  rating: number;
 }
 
 export interface Group {
   id: number;
   name: string;
+}
+
+export interface AddRatingParams {
+  movieID: number;
+  userID?: number;
+  rating: number;
 }
