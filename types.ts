@@ -26,3 +26,10 @@ export interface AddRatingParams {
   userID?: number;
   rating: number;
 }
+
+export interface Rating {
+  id: string;
+  movieID: number;
+  userID: number;
+  rating: number;
+}

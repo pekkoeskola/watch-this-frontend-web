@@ -1,27 +1,28 @@
-import { Movie } from "../../types"
-import { useAddMovieToGroupMutation } from "../endpoint"
+import { Movie } from "../../types";
+import { useAddMovieToGroupMutation } from "../features/apiSlice";
 
 interface MovieSearchResultCardProps {
-  movie: Movie
-  groupID: number
+  movie: Movie;
+  groupID: number;
 }
 
 const MovieCard = ({ movie, groupID }: MovieSearchResultCardProps) => {
-
-  const [ triggerAddMovie, _result ] = useAddMovieToGroupMutation()
+  const [triggerAddMovie, _result] = useAddMovieToGroupMutation();
 
   const addMovie = () => {
-    triggerAddMovie({tmdbID: movie.id, groupID: groupID})
-  }
+    triggerAddMovie({ tmdbID: movie.id, groupID: groupID });
+  };
 
-  return(
+  return (
     <div className={"border"}>
       <img src={movie.posterURL} />
       <h3 className={"text-xl"}>{movie.title}</h3>
       <p>{movie.overview}</p>
-      <button onClick={addMovie} className={"border-2"}>add</button>
+      <button onClick={addMovie} className={"border-2"}>
+        add
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default MovieCard
+export default MovieCard;

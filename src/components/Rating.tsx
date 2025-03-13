@@ -23,25 +23,25 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { useState } from "react";
-import { useAddMovieRatingMutation } from "@/endpoint";
+import { useAddMovieRatingMutation } from "@/features/ratingsSlice";
 import { useAppSelector } from "@/hooks";
 
 interface RatingProps {
   movieID: number;
 }
 
-const Rating = ({movieID}: RatingProps) => {
+const Rating = ({ movieID }: RatingProps) => {
   const [position, setPosition] = useState("5");
 
   const [triggerAddMovieRating, _result] = useAddMovieRatingMutation();
 
-  const userID = useAppSelector(state => state.auth.id)
+  const userID = useAppSelector((state) => state.auth.id);
 
   const addMovieRating = () => {
     triggerAddMovieRating({
       movieID,
       userID: userID,
-      rating: Number(position)
+      rating: Number(position),
     });
   };
 

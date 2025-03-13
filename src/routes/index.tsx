@@ -1,29 +1,32 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { useAppSelector } from '../hooks'
-import GroupsList from '../components/GroupsList'
-import { useCheckExistingLoginQuery } from '../endpoint'
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useAppSelector } from "../hooks";
+import GroupsList from "../components/GroupsList";
+import { useCheckExistingLoginQuery } from "../features/apiSlice";
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   component: RouteComponent,
-})
-
+});
 
 function RouteComponent() {
-  useCheckExistingLoginQuery()
-  const userDetails = useAppSelector(state => state.auth)
+  useCheckExistingLoginQuery();
+  const userDetails = useAppSelector((state) => state.auth);
 
-  if(userDetails.id !== null){
-    return(
-      <>    
+  if (userDetails.id !== undefined) {
+    return (
+      <>
         <div>{`Hello ${userDetails.username}`}</div>
-        <GroupsList userID={userDetails.id}/>
+        <GroupsList userID={userDetails.id} />
       </>
-    )
+    );
   }
 
   return (
     <div>
-      {<Link to='/login' className="border-2 p-2 m-2 inline-block">Login</Link>}
+      {
+        <Link to="/login" className="m-2 inline-block border-2 p-2">
+          Login
+        </Link>
+      }
     </div>
-  )
+  );
 }

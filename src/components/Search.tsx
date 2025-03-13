@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useLazySearchQuery } from "../endpoint";
+import { useLazySearchQuery } from "../features/apiSlice";
 import MovieSearchResultCard from "./MovieSearchResultCard";
 
 interface SearchProps {
-  groupID: number
+  groupID: number;
 }
 
-const Search = ({groupID}: SearchProps) => {
+const Search = ({ groupID }: SearchProps) => {
   const [searchField, setSearchField] = useState("");
 
   const [trigger, result] = useLazySearchQuery();
@@ -22,7 +22,14 @@ const Search = ({groupID}: SearchProps) => {
         <input type="text" onChange={(e) => setSearchField(e.target.value)} />
         <button type="submit">search</button>
       </form>
-      {result.isSuccess && result.data.map((movie) => <MovieSearchResultCard key={movie.id} movie={movie} groupID={groupID}/>)}
+      {result.isSuccess &&
+        result.data.map((movie) => (
+          <MovieSearchResultCard
+            key={movie.id}
+            movie={movie}
+            groupID={groupID}
+          />
+        ))}
     </div>
   );
 };

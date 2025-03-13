@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useGetGroupsQuery } from "../endpoint";
+import { useGetGroupsQuery } from "@/features/apiSlice";
 
 interface GroupListProps {
   userID: number;

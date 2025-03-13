@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 
 import { Route as indexRoute } from "../routes/index";
-import { useLoginMutation } from "../endpoint";
+import { useLoginMutation } from "../features/apiSlice";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -13,7 +13,9 @@ const LoginForm = () => {
 
   const onLogin = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    login({ username, password }).unwrap().then(() => navigate({ to: indexRoute.to }));
+    login({ username, password })
+      .unwrap()
+      .then(() => navigate({ to: indexRoute.to }));
   };
 
   return (

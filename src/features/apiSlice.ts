@@ -1,7 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { AddRatingParams, AuthState, Group, LoginDetails, Movie } from "../types.ts";
+import {
+  AuthState,
+  Group,
+  LoginDetails,
+  Movie,
+} from "../../types.ts";
 
-export const baseApi = createApi({
+export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
   }),
@@ -31,31 +36,30 @@ export const baseApi = createApi({
         url: `/groups/${groupID}/movies`,
         method: "GET",
       }),
-      providesTags: ["Movie"]
+      providesTags: ["Movie"],
     }),
     search: build.query<Movie[], string>({
       query: (keyword: string) => ({
         url: `/movies?keyword=${keyword}`,
-        method: "GET"
-      })
+        method: "GET",
+      }),
     }),
     //FIXME: return type should be movie so it can be manually updated to cache instead of refetching all movies
-    addMovieToGroup: build.mutation<void, {tmdbID: number, groupID: number}>({
-      query: (params: {tmdbID: number, groupID: number}) => ({
+    addMovieToGroup: build.mutation<void, { tmdbID: number; groupID: number }>({
+      query: (params: { tmdbID: number; groupID: number }) => ({
         url: `/groups/${params.groupID}/movies/${params.tmdbID}`,
-        method: "POST"
+        method: "POST",
       }),
-      invalidatesTags: ["Movie"]
+      invalidatesTags: ["Movie"],
     }),
-    //FIXME: return type should be new rating so it can be manually updated to cache instead of refetching all movies
-    addMovieRating: build.mutation<void, AddRatingParams>({
-      query: (params: AddRatingParams) => ({
-        url: `/movies/${params.movieID}/user/${params.userID}/rating/${params.rating}`,
-        method: "POST"
-      }),
-      invalidatesTags: ["Movie"]
-    })
   }),
 });
 
-export const { useLoginMutation, useGetGroupsQuery, useCheckExistingLoginQuery, useGetMoviesQuery, useLazySearchQuery, useAddMovieToGroupMutation, useAddMovieRatingMutation } = baseApi;
+export const {
+  useLoginMutation,
+  useGetGroupsQuery,
+  useCheckExistingLoginQuery,
+  useGetMoviesQuery,
+  useLazySearchQuery,
+  useAddMovieToGroupMutation,
+} = apiSlice;
